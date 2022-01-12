@@ -16,4 +16,4 @@ const envelopesDatabase = [
     },
 ];
 
-module.exports = envelopesDatabase;
+module.exports = { envelopesDatabase };
