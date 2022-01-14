@@ -9,10 +9,10 @@ router.get('/', (req, res, next) => {
     res.send(getAllEnvelopes());
 });
 
-// router.post('/envelopes', (req, res, next) => {
-//     const created = createEnvelope(req);
-//     res.status(201).send(created);
-// });
+router.post('/envelopes', (req, res, next) => {
+    const created = createEnvelope(Number(req.body.amount), req.body.name);
+    res.status(201).send(created);
+});
 
 router.get('/:id', (req, res, next) => {
     const id = req.params.id;

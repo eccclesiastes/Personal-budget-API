@@ -5,21 +5,19 @@ module.exports = {
         return envelopesDatabase;
     },
 
-    // createEnvelope(req) {
-    //     const id = envelopesDatabase[envelopesDatabase.length - 1].id + 1;
-    //     const amount = req.body?.amount;
-    //     const name = req.body?.name;
+    createEnvelope(amountInput, nameInput) {
+        const id = envelopesDatabase[envelopesDatabase.length - 1].id + 1;
 
-    //     const item = {
-    //         id: id,
-    //         amount: amount,
-    //         name: name,
-    //     };
+        const item = {
+            id: id,
+            amount: amountInput,
+            name: nameInput,
+        };
 
-    //     envelopesDatabase.push(item);
+        envelopesDatabase.push(item);
 
-    //     return item;
-    // },
+        return item;
+    },
 
     findEnvelopeById(idParam) {
         const found = envelopesDatabase.find(env => env.id === Number(idParam));
