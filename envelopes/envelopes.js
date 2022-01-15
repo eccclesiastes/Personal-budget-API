@@ -5,13 +5,14 @@ module.exports = {
         return envelopesDatabase;
     },
 
-    createEnvelope(amountInput, nameInput) {
+    createEnvelope(amountInput, titleInput) {
         const id = envelopesDatabase[envelopesDatabase.length - 1].id + 1;
+        const amount = Number(amountInput);
 
         const item = {
             id: id,
-            amount: amountInput,
-            name: nameInput,
+            amount: amount,
+            name: titleInput,
         };
 
         envelopesDatabase.push(item);
@@ -22,5 +23,11 @@ module.exports = {
     findEnvelopeById(idParam) {
         const found = envelopesDatabase.find(env => env.id === Number(idParam));
         return found;
+    },
+
+    deleteEnvelopeById(idParam) {
+        const toDelete = envelopesDatabase.findIndex(env => env.id === Number(idParam));
+        const deleted = envelopesDatabase.splice(toDelete, 1);
+        return deleted;
     },
 };
