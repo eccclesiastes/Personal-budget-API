@@ -45,4 +45,13 @@ module.exports = {
             return 1;
         };
     },
+
+    updateEnvelope(idParam, newTitle, newAmount) {
+        const envelopeToUpdate = envelopesDatabase.find(env => env.id === Number(idParam));
+        const amount = Number(newAmount);
+
+        envelopeToUpdate.amount = amount;
+        envelopeToUpdate.title = newTitle;
+        return envelopeToUpdate;
+    },
 };

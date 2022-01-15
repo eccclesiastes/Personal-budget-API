@@ -6,6 +6,7 @@ const {
     findEnvelopeById,
     deleteEnvelopeById,
     transferBetweenEnvelopes,
+    updateEnvelope,
 } = require('../envelopes/envelopes');
 
 router.get('/', (req, res, next) => {
@@ -13,12 +14,15 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    if (!req.body.title || !req.body.amount) {
+    const title = req.body.title;
+    const amount = req.body.amount;
+
+    if (!title || !amount) {
         res.status(400).send();
-    } else if (typeof req.body.title !== 'string' || typeof req.body.amount !== 'number') {
+    } else if (typeof title !== 'string' || typeof amount !== 'number') {
         res.status(400).send();
     } else {
-        const created = createEnvelope(req.body.amount, req.body.title);
+        const created = createEnvelope(amount, title);
         res.status(201).send(created);
     };
 });
@@ -56,6 +60,23 @@ router.post('/transfer/:fromId/:toId/', (req, res, next) => {
         res.send(`Transferred ${amountToTransfer} from envelope with ID: ${fromEnvelope} to envelope with ID: ${toEnvelope}.`);
     } else {
         res.status(400).send();
+    };
+});
+
+router.post('/update/:id', (req, res, next) => {
+    const id = req.params.id;
+    const title = req.body.title;
+    const amount = req.body.amount;
+
+    if (!title || !amount) {
+        res.status(400).send();
+    } else if (typeof title !== 'string' || typeof amount !== 'number') {
+        res.status(400).send();
+    } else if (envelopesDatabase.indexOf(envelopesDatabase.find(env => env.id == Number(id))) === -1) {
+        res.status(404).send(`No such envelope with ID: ${id} found.`);
+    } else {
+        const updated = updateEnvelope(id, title, amount);
+        res.send(updated);
     };
 });
 
