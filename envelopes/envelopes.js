@@ -12,7 +12,7 @@ module.exports = {
         const item = {
             id: id,
             amount: amount,
-            name: titleInput,
+            title: titleInput,
         };
 
         envelopesDatabase.push(item);
@@ -29,5 +29,20 @@ module.exports = {
         const toDelete = envelopesDatabase.findIndex(env => env.id === Number(idParam));
         const deleted = envelopesDatabase.splice(toDelete, 1);
         return deleted;
+    },
+
+    transferBetweenEnvelopes(fromInput, toInput, amountInput) {
+        const fromEnvelope = envelopesDatabase.find(env => env.id === Number(fromInput));
+        const toEnvelope = envelopesDatabase.find(env => env.id === Number(toInput));
+        const fromAmount = Number(fromEnvelope.amount);
+        const toAmount = Number(amountInput);
+
+        if (toAmount > fromAmount) {
+            return 0;
+        } else {
+            fromEnvelope.amount -= toAmount;
+            toEnvelope.amount += toAmount;
+            return 1;
+        };
     },
 };
