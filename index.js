@@ -10,6 +10,6 @@ app.get('/', (req, res, next) => {
     res.send('Hello world!');
 });
 
-app.listen(3000, () => {
+module.exports = app.listen(3000, () => {
     console.log('Listening at port: http://localhost:3000');
 });
