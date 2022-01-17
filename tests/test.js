@@ -15,5 +15,16 @@ describe('api_requests', async () => {
 
             assert.strictEqual(typeof response.body, expected);
         });
+
+        it('returns a full envelope object on GET /', async () => {
+            const response = await request(api)
+            .get('/')
+            .send()
+            .expect(200);
+
+            expect(response.body).hasOwnProperty('title');
+            expect(response.body).hasOwnProperty('amount');
+            expect(response.body).hasOwnProperty('id');         
+        });
     });
 });
