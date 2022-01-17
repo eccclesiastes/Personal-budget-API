@@ -49,5 +49,12 @@ describe('api_requests', async () => {
 
             assert.strictEqual(response.body.id, expected);
         });
+
+        it('returns a 404 error if id is not found (/id)', async () => {
+            const response = await request(api)
+            .get('/hello')
+            .send()
+            .expect(404);
+        });
     });
 });
