@@ -26,5 +26,16 @@ describe('api_requests', async () => {
             expect(response.body).hasOwnProperty('amount');
             expect(response.body).hasOwnProperty('id');         
         });
+
+        it('returns the envelope with the correct id on GET /{id}', async () => {
+            const expected = 1;
+
+            const response = await request(api)
+            .get('/1')
+            .send()
+            .expect(200)
+
+            assert.strictEqual(response.body.id, expected);
+        });
     });
 });
