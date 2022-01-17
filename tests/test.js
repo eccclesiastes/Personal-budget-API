@@ -39,6 +39,25 @@ describe('api_requests', async () => {
             expect(response.body).hasOwnProperty('id');         
         });
 
+        it('returns the correct type of value for each object', async () => {
+            const titleExpected = 'string';
+            const amountExpected = 'number';
+            const idExpected = 'number';
+
+            const response = await request(api)
+            .get('/')
+            .send()
+            .expect(200)
+
+            const titleType = typeof response.body[0].title;
+            const amountType = typeof response.body[0].amount;
+            const idType = typeof response.body[0].id;
+
+            assert.strictEqual(titleType, titleExpected);
+            assert.strictEqual(amountType, amountExpected);
+            assert.strictEqual(idType, idExpected);
+        });
+
         it('returns the object with the correct id (/id)', async () => {
             const expected = 1;
 
