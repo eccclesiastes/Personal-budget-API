@@ -2,9 +2,7 @@
   "dependencies": {
     "body-parser": "^1.19.1",
     "chai": "^4.3.4",
-    "express": "^4.17.2",
-    "mocha": "^9.1.4",
-    "supertest": "^6.2.1"
+    "express": "^4.17.2"
   },
   "name": "personal_budget",
   "description": "This is a NodeJS/Express API to create and manage a personal budget. This API uses [envelope budgeting](https://www.thebalance.com/what-is-envelope-budgeting-1293682) principles to manage budget envelopes and was built as part of a portfolio project on the [CodeCademy](https://www.codecademy.com) Back-End Engineer Career Path. A user can find, create, update, transfer amounts between, and delete envelopes.",
@@ -13,9 +11,12 @@
   "directories": {
     "test": "tests"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^9.1.4",
+    "supertest": "^6.2.1"
+  },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha tests/test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,5 @@
   "bugs": {
     "url": "https://github.com/qtdceu/Personal-budget-API/issues"
   },
-  "homepage": "https://github.com/qtdceu/Personal-budget-API#readme",
-  "test": "NODE_ENV=test mocha -w --sort"
+  "homepage": "https://github.com/qtdceu/Personal-budget-API#readme"
 }
