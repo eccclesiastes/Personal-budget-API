@@ -90,5 +90,18 @@ describe('api_requests', async () => {
             
             assert.strictEqual(newLength, expected);
         });
+
+        it('creates a new id for each envelope', async () => {
+            const expectedId = envelopesDatabase[envelopesDatabase.length - 1].id + 1;
+
+            const response = await request(api)
+            .post('/')
+            .send({"title": "Commuting", "amount": 200})
+            .expect(201);
+
+            const id = response.body.id;
+            
+            assert.strictEqual(id, expectedId);
+        });
     });
 });
