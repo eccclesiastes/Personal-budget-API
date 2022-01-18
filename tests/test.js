@@ -76,4 +76,19 @@ describe('api_requests', async () => {
             .expect(404);
         });
     });
+
+    describe('POST', async () => {
+        it('creates a new envelope', async () => {
+            const expected = envelopesDatabase.length + 1;
+
+            const response = await request(api)
+            .post('/')
+            .send({"title": "Commuting", "amount": 200})
+            .expect(201)
+
+            const newLength = envelopesDatabase.length;
+            
+            assert.strictEqual(newLength, expected);
+        });
+    });
 });
