@@ -109,5 +109,22 @@ describe('api_requests', async () => {
             assert.strictEqual(amount, expectedAmount);
             assert.strictEqual(id, expectedId);
         });
+
+        it('returns a 400 status code when title and/or amount is not present', async () => {
+            await request(api)
+            .post('/')
+            .send()
+            .expect(400)
+
+            await request(api)
+            .post('/')
+            .send({"title": "Commuting"})
+            .expect(400);
+
+            await request(api)
+            .post('/')
+            .send({"amount": 200})
+            .expect(400); 
+        });
     });
 });
