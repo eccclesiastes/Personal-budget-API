@@ -21,6 +21,8 @@ router.post('/', (req, res, next) => {
         res.status(400).send();
     } else if (typeof title !== 'string' || typeof amount !== 'number') {
         res.status(400).send();
+    } else if (amount < 0) {
+        res.status(400).send();
     } else {
         const created = createEnvelope(amount, title);
         res.status(201).send(created);
@@ -56,7 +58,9 @@ router.post('/transfer/:fromId/:toId/', (req, res, next) => {
 
     const transferred = transferBetweenEnvelopes(fromEnvelope, toEnvelope, amountToTransfer);
 
-    if (transferred === 1) {
+    if (amountToTransfer < 0) {
+        res.status(400).send();
+    } else if (transferred === 1) {
         res.send(`Transferred ${amountToTransfer} from envelope with ID: ${fromEnvelope} to envelope with ID: ${toEnvelope}.`);
     } else {
         res.status(400).send();
@@ -74,6 +78,8 @@ router.post('/update/:id', (req, res, next) => {
         res.status(400).send();
     } else if (envelopesDatabase.indexOf(envelopesDatabase.find(env => env.id == Number(id))) === -1) {
         res.status(404).send(`No such envelope with ID: ${id} found.`);
+    } else if (amount < 0) {
+        res.status(400).send();
     } else {
         const updated = updateEnvelope(id, title, amount);
         res.send(updated);
