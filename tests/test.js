@@ -138,5 +138,12 @@ describe('api_requests', async () => {
             .send({"amount": "true"})
             .expect(400); 
         });
+
+        it('returns a 400 status code when amount is less than 0', async () => {
+            await request(api)
+            .post('/')
+            .send({"amount": -200})
+            .expect(400);
+        });
     });
 });
