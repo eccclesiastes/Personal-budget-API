@@ -264,5 +264,17 @@ describe('api_requests', async () => {
             .send({"amount": -200})
             .expect(400);
         });
+
+        it('returns a 400 status code when amount or title is not correct type (/update/{id})', async () => {
+            await request(api)
+            .post('/update/1')
+            .send({"amount": true})
+            .expect(400);
+
+            await request(api)
+            .post('/update/1')
+            .send({"title": true})
+            .expect(400);
+        });
     });
 });
