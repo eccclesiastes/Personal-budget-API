@@ -207,5 +207,26 @@ describe('api_requests', async () => {
             .send({"amount": moreThanFromEnvelopeAmount})
             .expect(400);
         });
+
+        it('updates an envelope with the correct information (/update/{id})', async () => {
+            const expectedNewTitle = "Commuting";
+            const expectedNewAmount = 200;
+
+            await request(api)
+            .post('/update/1')
+            .send({"title": "Commuting", "amount": 200})
+            .expect(200);
+
+            const updated = await request(api)
+            .get('/1')
+            .send()
+            .expect(200);
+
+            const newTitle = updated.body.title;
+            const newAmount = updated.body.amount;
+
+            assert.strictEqual(newTitle, expectedNewTitle);
+            assert.strictEqual(newAmount, expectedNewAmount);
+        });
     });
 });
