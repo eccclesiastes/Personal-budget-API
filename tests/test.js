@@ -186,10 +186,25 @@ describe('api_requests', async () => {
             .expect(400);
         });
 
-        it('returns a 400 status code when amount is not correct type', async () => {
+        it('returns a 400 status code when amount is not correct type (/transfer/{fromId}/{toId})', async () => {
             await request(api)
             .post('/transfer/1/3')
             .send({"amount": true})
+            .expect(400);
+        });
+
+        it('returns a 400 status code if amount to transfer is more than present (/transfer/{fromId}/{toId})', async () => {
+            const fromEnvelope = await request(api)
+            .get('/1')
+            .send()
+            .expect(200);
+
+            const fromEnvelopeAmount = fromEnvelope.body.amount;
+            const moreThanFromEnvelopeAmount = fromEnvelopeAmount + 200;
+
+            await request(api)
+            .post('/transfer/1/3')
+            .send({"amount": moreThanFromEnvelopeAmount})
             .expect(400);
         });
     });
