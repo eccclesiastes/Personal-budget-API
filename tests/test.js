@@ -284,4 +284,19 @@ describe('api_requests', async () => {
             .expect(400);
         });
     });
+
+    describe('DELETE', async () => {
+        it('deletes an envelope', async () => {
+            const expected = envelopesDatabase.length - 1;
+
+            await request(api)
+            .delete('/1')
+            .send()
+            .expect(200);
+
+            const newLength = envelopesDatabase.length;
+
+            assert.strictEqual(newLength, expected);
+        });
+    });
 });
