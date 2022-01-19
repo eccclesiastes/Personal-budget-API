@@ -58,3 +58,7 @@ Example body:
 ## Delete:
 
 > Delete an envelope by ID: `DELETE /{id}`
+
+# Tests 
+
+![All tests passing](https://github.com/qtdceu/Personal-budget-API/blob/main/screenshots/Screenshot%202022-01-19%20192350.png)
