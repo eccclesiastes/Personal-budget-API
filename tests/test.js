@@ -276,5 +276,12 @@ describe('api_requests', async () => {
             .send({"title": true})
             .expect(400);
         });
+
+        it('returns a 400 status code if id or envelopes are not found (/update/{id})', async () => {
+            await request(api)
+            .post('/update/200')
+            .send()
+            .expect(400);
+        });
     });
 });
