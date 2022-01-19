@@ -56,7 +56,7 @@ router.post('/transfer/:fromId/:toId/', (req, res, next) => {
     const toEnvelope = req.params.toId;
     const amountToTransfer = req.body.amount;
 
-    if (!amountToTransfer || amountToTransfer < 0) {
+    if (!amountToTransfer || amountToTransfer < 0 || typeof amountToTransfer !== 'number') {
         res.status(400).send();
     } else {
         const transferred = transferBetweenEnvelopes(fromEnvelope, toEnvelope, amountToTransfer);
