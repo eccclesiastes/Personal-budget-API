@@ -208,6 +208,18 @@ describe('api_requests', async () => {
             .expect(400);
         });
 
+        it('returns a 400 status code if id or envelopes are not found (/transfer/{fromId}/{toId})', async () => {
+            await request(api)
+            .post('/transfer/200/3')
+            .send()
+            .expect(400);
+
+            await request(api)
+            .post('/transfer/1/200')
+            .send()
+            .expect(400);
+        });
+
         it('updates an envelope with the correct information (/update/{id})', async () => {
             const expectedNewTitle = "Commuting";
             const expectedNewAmount = 200;
