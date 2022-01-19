@@ -185,5 +185,12 @@ describe('api_requests', async () => {
             .send()
             .expect(400);
         });
+
+        it('returns a 400 status code when amount is not correct type', async () => {
+            await request(api)
+            .post('/transfer/1/3')
+            .send({"amount": true})
+            .expect(400);
+        });
     });
 });
