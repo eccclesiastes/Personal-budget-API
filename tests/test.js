@@ -298,5 +298,12 @@ describe('api_requests', async () => {
 
             assert.strictEqual(newLength, expected);
         });
+
+        it('returns a 404 status code if id or envelopes are not found', async () => {
+            await request(api)
+            .delete('/200')
+            .send()
+            .expect(404);
+        });
     });
 });
