@@ -257,5 +257,12 @@ describe('api_requests', async () => {
             .send({"amount": 200})
             .expect(400); 
         });
+
+        it('returns a 400 status code if amount is less than 0 (/update/{id})', async () => {
+            await request(api)
+            .post('/update/1')
+            .send({"amount": -200})
+            .expect(400);
+        });
     });
 });
