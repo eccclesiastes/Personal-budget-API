@@ -145,5 +145,31 @@ describe('api_requests', async () => {
             .send({"amount": -200})
             .expect(400);
         });
+
+        it('transfers an amount between envelopes (/transfer/{fromId}/{toId}', async () => {
+            const sendingEnvelope = envelopesDatabase[0].amount;
+            const recievingEnvelope = envelopesDatabase[2].amount;
+
+            const response = await request(api)
+            .post('/transfer/1/3')
+            .send({"amount": 200})
+            .expect(200)
+
+            const expectedSendingEnvelopeAmount = sendingEnvelope - 200;
+            const expectedRecievingEnvelopeAmount = recievingEnvelope + 200;
+
+            const sendingAmountInDBAfterTransfer = await request(api)
+            .get('/1')
+            .send()
+            .expect(200);
+
+            const recievingAmountInDBAfterTransfer = await request(api)
+            .get('/3')
+            .send()
+            .expect(200);
+
+            assert.strictEqual(expectedSendingEnvelopeAmount, sendingAmountInDBAfterTransfer.body.amount);
+            assert.strictEqual(expectedRecievingEnvelopeAmount, recievingAmountInDBAfterTransfer.body.amount);
+        });
     });
 });
