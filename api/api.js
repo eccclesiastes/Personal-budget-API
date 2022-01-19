@@ -56,7 +56,7 @@ router.post('/transfer/:fromId/:toId/', (req, res, next) => {
     const toEnvelope = req.params.toId;
     const amountToTransfer = req.body.amount;
 
-    if (!amountToTransfer || amountToTransfer < 0 || typeof amountToTransfer !== 'number') {
+    if (!amountToTransfer || amountToTransfer < 0 || typeof amountToTransfer !== 'number' || envelopesDatabase.indexOf(envelopesDatabase.find(env => env.id == Number(fromEnvelope))) === -1 || envelopesDatabase.indexOf(envelopesDatabase.find(env => env.id == Number(toEnvelope))) === -1) {
         res.status(400).send();
     } else {
         const transferred = transferBetweenEnvelopes(fromEnvelope, toEnvelope, amountToTransfer);
@@ -74,10 +74,8 @@ router.post('/update/:id', (req, res, next) => {
     const title = req.body.title;
     const amount = req.body.amount;
 
-    if (!title || !amount || amount < 0 || typeof title !== 'string' || typeof amount !== 'number') {
+    if (!title || !amount || amount < 0 || typeof title !== 'string' || typeof amount !== 'number' || envelopesDatabase.indexOf(envelopesDatabase.find(env => env.id == Number(id))) === -1) {
         res.status(400).send();
-    } else if (envelopesDatabase.indexOf(envelopesDatabase.find(env => env.id == Number(id))) === -1) {
-        res.status(404).send(`No such envelope with ID: ${id} found.`);
     } else {
         const updated = updateEnvelope(id, title, amount);
         res.send(updated);
